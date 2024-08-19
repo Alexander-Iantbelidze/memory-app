@@ -3,6 +3,7 @@ import './Card.css';
 
 function Card({ image, onClick, flipped, matched }) {
   return (
+    <> 
     <div className={`card ${flipped ? 'flipped' : ''} ${matched ? 'matched' : ''}`} onClick={onClick}>
       <div className="inner">
         <div className="front">
@@ -11,6 +12,7 @@ function Card({ image, onClick, flipped, matched }) {
         <div className="back"></div>
       </div>
     </div>
+    </>
   );
 }
 
