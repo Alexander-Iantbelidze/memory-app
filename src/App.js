@@ -3,6 +3,7 @@ import { fetchImages } from './api/picsum';
 import { generateCardSet } from './utils';
 import Card from './components/Card/Card.js';
 import './App.css';
+import { TopScores, submitScore } from './components/TopScore.js';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -27,6 +28,7 @@ const [elapsedTime, setElapsedTime] = useState(null);
       const seconds = Math.floor(timeTaken % 60);
       setElapsedTime(`${minutes} minute(s) and ${seconds} second(s)`);
       setShowToast(true);
+      submitScore('Player', timeTaken);
       setTimeout(() => {
         window.location.reload();
       }, 10000); // Toast message duration
@@ -78,6 +80,7 @@ const [elapsedTime, setElapsedTime] = useState(null);
           </div>
         </div>
       )}
+      <TopScores />
     </div>
   );
 }
