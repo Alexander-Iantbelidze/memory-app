@@ -3,22 +3,20 @@ import { fetchImages } from './api/picsum';
 import { generateCardSet } from './utils';
 import Card from './components/Card/Card.js';
 import './App.css';
-import { TopScores, submitScore } from './components/TopScore.js';
 
 function App() {
   const [cards, setCards] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState(0);
   const [showToast, setShowToast] = useState(false);
-
-const [startTime, setStartTime] = useState(null);
-const [elapsedTime, setElapsedTime] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(null);
 
   useEffect(() => {
-    const fetchedImages = fetchImages(); 
+    const fetchedImages = fetchImages();
     const cardSet = generateCardSet(fetchedImages);
     setCards(cardSet);
-  }, []);
+  }, []); 
 
   useEffect(() => {
     if (matchedPairs === cards.length / 2 && cards.length > 0) {
@@ -26,9 +24,10 @@ const [elapsedTime, setElapsedTime] = useState(null);
       const timeTaken = (endTime - startTime) / 1000;
       const minutes = Math.floor(timeTaken / 60);
       const seconds = Math.floor(timeTaken % 60);
-      setElapsedTime(`${minutes} minute(s) and ${seconds} second(s)`);
+      const formattedTime = `${minutes} minute(s) and ${seconds} second(s)`;
+      setElapsedTime(formattedTime);
       setShowToast(true);
-      submitScore('Player', timeTaken);
+
       setTimeout(() => {
         window.location.reload();
       }, 10000); // Toast message duration
@@ -37,7 +36,7 @@ const [elapsedTime, setElapsedTime] = useState(null);
 
   const handleCardClick = (index) => {
     if (flippedIndices.length === 2 || flippedIndices.includes(index)) return;
-    
+
     if (startTime === null) {
       setStartTime(Date.now());
     }
@@ -48,7 +47,7 @@ const [elapsedTime, setElapsedTime] = useState(null);
     if (newFlippedIndices.length === 2) {
       const [firstIndex, secondIndex] = newFlippedIndices;
       if (cards[firstIndex].url === cards[secondIndex].url) {
-        setCards(prevCards =>
+        setCards((prevCards) =>
           prevCards.map((card, i) =>
             i === firstIndex || i === secondIndex ? { ...card, matched: true } : card
           )
@@ -72,15 +71,14 @@ const [elapsedTime, setElapsedTime] = useState(null);
             matched={card.matched}
           />
         ))}
-     </div>
+      </div>
       {showToast && (
         <div className="toast-overlay">
-          <div className="toast-message">   
+          <div className="toast-message">
             <p>You have found all image pairs in: {elapsedTime} 🥳🥳</p>
           </div>
         </div>
       )}
-      <TopScores />
     </div>
   );
 }
