@@ -30,7 +30,7 @@ function App() {
 
       setTimeout(() => {
         window.location.reload();
-      }, 10000); // Toast message duration
+      }, 5000); // Toast message duration
     }
   }, [matchedPairs, cards, startTime]);
 
