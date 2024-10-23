@@ -34,7 +34,6 @@ function App() {
           'X-Master-Key': JSONBIN_API_KEY
         }
       });
-      // Debugging: Fetched response data
       console.log("Fetched response data:", response.data);
       if (response.data && response.data.record && Array.isArray(response.data.record.record)) {
         setScores(response.data.record.record);
@@ -43,7 +42,7 @@ function App() {
       }
     } catch (error) {
       console.error("Failed to fetch scores:", error);
-      setScores([]); // Falls etwas schiefgeht, initialisiere Scores als leeres Array
+      setScores([]);
     }
   };
 
@@ -59,7 +58,7 @@ function App() {
 
       setTimeout(() => {
         setShowInput(true);
-      }, 5000); // Toast message duration before showing input
+      }, 5000);
     }
   }, [matchedPairs, cards, startTime]);
 
@@ -113,22 +112,24 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Memory Game</h1>
-      <div className="grid-container">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            image={card}
-            onClick={() => handleCardClick(index)}
-            flipped={flippedIndices.includes(index) || card.matched}
-            matched={card.matched}
-          />
-        ))}
+      <div className="game-container">
+        <h1>Memory Game</h1>
+        <div className="grid-container">
+          {cards.map((card, index) => (
+            <Card
+              key={index}
+              image={card}
+              onClick={() => handleCardClick(index)}
+              flipped={flippedIndices.includes(index) || card.matched}
+              matched={card.matched}
+            />
+          ))}
+        </div>
       </div>
       <div className="score-list">
         <h2>Top Scores</h2>
         <ol>
-        {scores && scores.length > 0 ? scores.map((score, index) => (
+          {scores && scores.length > 0 ? scores.map((score, index) => (
             <li key={index}>{score.name} - {score.time}</li>
           )) : <li>No scores yet</li>}
         </ol>

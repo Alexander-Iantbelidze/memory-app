@@ -1,28 +1,38 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   background-color: #e0e0e0;
 }
 
 .App {
-  max-width: 80vmin;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
   grid-gap: 20px;
-  width: 80vmin; /* Maximale Breite des Grids (vmin verwendet, um das Layout responsive zu halten) */
-  height: 80vmin; /* Maximale Höhe des Grids */
+  width: 80vmin; 
+  height: 80vmin;
 }
 
 .score-list {
-  margin: 20px;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 400px;
 }
 
 .score-list h2 {
@@ -37,12 +47,12 @@ body, html {
 
 .score-list li {
   background: #fff;
-  margin: 10px;
+  margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
 }
 
-h1, p {
+h1 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -136,3 +146,44 @@ h1, p {
   background-color: #218838;
 }
 
+@media screen and (min-width: 768px) {
+  .App {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .game-container {
+    width: 65%;
+    order: 2;
+  }
+
+  .score-list {
+    width: 30%;
+    order: 1;
+  }
+
+  .grid-container {
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .game-container {
+    width: 75%;
+  }
+
+  .score-list {
+    width: 20%;
+  }
+
+  .grid-container {
+    max-width: 80vmin;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .grid-container {
+    max-width: 1000px;
+  }
+}
