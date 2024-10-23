@@ -127,7 +127,7 @@ function App() {
         </div>
       </div>
       <div className="score-list">
-        <h2>Top Scores</h2>
+        <h2>Top 5 Scores</h2>
         <ol>
           {scores && scores.length > 0 ? scores.map((score, index) => (
             <li key={index}>{score.name} - {score.time}</li>
